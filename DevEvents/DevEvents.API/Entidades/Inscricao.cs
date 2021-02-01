@@ -9,6 +9,8 @@ namespace DevEvents.API.Entidades
     {
         public int Id { get; set; }
         public int IdUsuario { get; set; }
+        public Usuario Usuario;
         public int Idevento { get; set; }
+        public Evento Evento { get; set; }
     }
 }

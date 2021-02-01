@@ -1,4 +1,5 @@
 ﻿using DevEvents.API.Entidades;
+using DevEvents.API.Persistencia;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,35 +11,21 @@ namespace DevEvents.API.Controllers
     [Route("api/usuarios")]
     public class UsuariosController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult ObterUsuarios()
+        private readonly DevEventsDbContext _dbContext;
+        public UsuariosController(DevEventsDbContext dbContext)
         {
+            _dbContext = dbContext;
+        }
+
+        [HttpPost]
+        public IActionResult Cadastrar([FromBody] Usuario usuario)
+        {
+            _dbContext.Usuarios.Add(usuario);
+            _dbContext.SaveChanges();
             return Ok();
         }
 
-        [HttpGet("{id}")]
-        public IActionResult ObterUsuario(int id)
-        {
-            return Ok();
-        }
-
-        [HttpPost("{id}")]
-        public IActionResult Cadastrar(int id, [FromBody] Usuario usuario)
-        {
-            return Ok();
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult Atualizar(int id, [FromBody] Usuario usuario)
-        {
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Deletar(int id)
-        {
-            return NoContent();
-        }
+      
 
     }
 }
